@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34511.98
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Zahlenratespiel", "Zahlenratespiel\Zahlenratespiel.vbproj", "{EC7B4236-4391-493E-B051-0D409240A894}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC7B4236-4391-493E-B051-0D409240A894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC7B4236-4391-493E-B051-0D409240A894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC7B4236-4391-493E-B051-0D409240A894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC7B4236-4391-493E-B051-0D409240A894}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D4080B94-EF40-438D-9700-29A7FD314D5E}
+	EndGlobalSection
+EndGlobal
