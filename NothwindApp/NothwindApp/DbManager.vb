@@ -14,7 +14,7 @@ Public Class DbManager
         Me.ConString = conString
     End Sub
 
-    Public Function GetAllEmployees() As List(Of Employee)
+    Public Function GetAllEmployees(Optional such As String = Nothing) As List(Of Employee)
 
         Dim con As SqlConnection
         Try
@@ -23,7 +23,12 @@ Public Class DbManager
 
             Dim cmd = New SqlCommand
             cmd.Connection = con
-            cmd.CommandText = "SELECT * FROM Employees ORDER BY BirthDate"
+            If String.IsNullOrWhiteSpace(such) Then
+                cmd.CommandText = "SELECT * FROM Employees ORDER BY BirthDate"
+            Else
+                cmd.CommandText = "SELECT * FROM Employees WHERE FirstName LIKE '%" + such + "%' OR LastName LIKE '%" + such + "%' ORDER BY BirthDate"
+            End If
+
             Dim reader = cmd.ExecuteReader()
 
             Dim liste = New List(Of Employee)

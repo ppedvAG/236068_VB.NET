@@ -57,4 +57,18 @@ Public Class Form1
         End Try
 
     End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+
+        Try
+
+            DataGridView1.DataSource = dbm.GetAllEmployees(TextBox1.Text)
+
+        Catch ex As SqlException
+            MessageBox.Show($"Datenbank-Fehler: {ex.Message} {vbCrLf}Server: {ex.Server}{vbCrLf}State: {ex.State}{vbCrLf}Source: {ex.Source}{vbCrLf}")
+        Catch ex As Exception
+            MessageBox.Show($"Fehler: {ex.Message}")
+        End Try
+
+    End Sub
 End Class

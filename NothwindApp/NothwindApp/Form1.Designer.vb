@@ -26,6 +26,9 @@ Partial Class Form1
         Button1 = New Button()
         Button2 = New Button()
         DataGridView1 = New DataGridView()
+        Label1 = New Label()
+        TextBox1 = New TextBox()
+        Button3 = New Button()
         FlowLayoutPanel1.SuspendLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -37,6 +40,9 @@ Partial Class Form1
         FlowLayoutPanel1.BackColor = Color.DarkSalmon
         FlowLayoutPanel1.Controls.Add(Button1)
         FlowLayoutPanel1.Controls.Add(Button2)
+        FlowLayoutPanel1.Controls.Add(Label1)
+        FlowLayoutPanel1.Controls.Add(TextBox1)
+        FlowLayoutPanel1.Controls.Add(Button3)
         FlowLayoutPanel1.Dock = DockStyle.Top
         FlowLayoutPanel1.Location = New Point(0, 0)
         FlowLayoutPanel1.Name = "FlowLayoutPanel1"
@@ -76,6 +82,35 @@ Partial Class Form1
         DataGridView1.Size = New Size(906, 402)
         DataGridView1.TabIndex = 1
         ' 
+        ' Label1
+        ' 
+        Label1.Anchor = AnchorStyles.Left
+        Label1.AutoSize = True
+        Label1.Location = New Point(471, 8)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(84, 32)
+        Label1.TabIndex = 2
+        Label1.Text = "Suche:"
+        ' 
+        ' TextBox1
+        ' 
+        TextBox1.Anchor = AnchorStyles.Left
+        TextBox1.Location = New Point(561, 4)
+        TextBox1.Name = "TextBox1"
+        TextBox1.Size = New Size(200, 39)
+        TextBox1.TabIndex = 3
+        ' 
+        ' Button3
+        ' 
+        Button3.AutoSize = True
+        Button3.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        Button3.Location = New Point(767, 3)
+        Button3.Name = "Button3"
+        Button3.Size = New Size(103, 42)
+        Button3.TabIndex = 4
+        Button3.Text = "Suchen"
+        Button3.UseVisualStyleBackColor = True
+        ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(13F, 32F)
@@ -96,5 +131,8 @@ Partial Class Form1
     Friend WithEvents Button1 As Button
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents Button2 As Button
+    Friend WithEvents Label1 As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Button3 As Button
 
 End Class
