@@ -24,8 +24,8 @@ Partial Class Form1
     Private Sub InitializeComponent()
         FlowLayoutPanel1 = New FlowLayoutPanel()
         Button1 = New Button()
-        DataGridView1 = New DataGridView()
         Button2 = New Button()
+        DataGridView1 = New DataGridView()
         FlowLayoutPanel1.SuspendLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -54,17 +54,6 @@ Partial Class Form1
         Button1.Text = "Laden alle Employees"
         Button1.UseVisualStyleBackColor = True
         ' 
-        ' DataGridView1
-        ' 
-        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Dock = DockStyle.Fill
-        DataGridView1.Location = New Point(0, 48)
-        DataGridView1.Name = "DataGridView1"
-        DataGridView1.RowHeadersWidth = 82
-        DataGridView1.RowTemplate.Height = 41
-        DataGridView1.Size = New Size(906, 402)
-        DataGridView1.TabIndex = 1
-        ' 
         ' Button2
         ' 
         Button2.AutoSize = True
@@ -75,6 +64,17 @@ Partial Class Form1
         Button2.TabIndex = 1
         Button2.Text = "Neuer Employee"
         Button2.UseVisualStyleBackColor = True
+        ' 
+        ' DataGridView1
+        ' 
+        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridView1.Dock = DockStyle.Fill
+        DataGridView1.Location = New Point(0, 48)
+        DataGridView1.Name = "DataGridView1"
+        DataGridView1.RowHeadersWidth = 82
+        DataGridView1.RowTemplate.Height = 41
+        DataGridView1.Size = New Size(906, 402)
+        DataGridView1.TabIndex = 1
         ' 
         ' Form1
         ' 
