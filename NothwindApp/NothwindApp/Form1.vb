@@ -45,7 +45,7 @@ Public Class Form1
 
         Try
 
-            dbm.AddNewEmployee("NEU", "NEU", DateTime.Now.AddYears(-200))
+            dbm.AddNewEmployee("NEU", "NEU", DateTime.Now.AddYears(-20))
 
             MessageBox.Show("Done")
         Catch ex As TooOldOrBirthdateInFutureException

@@ -1,5 +1,4 @@
-﻿Imports System.Globalization
-Imports Microsoft.Data.SqlClient
+﻿Imports Microsoft.Data.SqlClient
 
 Public Class DbManager
 
@@ -26,7 +25,8 @@ Public Class DbManager
             If String.IsNullOrWhiteSpace(such) Then
                 cmd.CommandText = "SELECT * FROM Employees ORDER BY BirthDate"
             Else
-                cmd.CommandText = "SELECT * FROM Employees WHERE FirstName LIKE '%" + such + "%' OR LastName LIKE '%" + such + "%' ORDER BY BirthDate"
+                cmd.CommandText = "SELECT * FROM Employees WHERE FirstName LIKE '%'+ @suche +'%' OR LastName LIKE '%' + @suche + '%' ORDER BY BirthDate"
+                cmd.Parameters.AddWithValue("suche", such)
             End If
 
             Dim reader = cmd.ExecuteReader()
@@ -82,7 +82,11 @@ Public Class DbManager
 
             Dim cmd = New SqlCommand()
             cmd.Connection = con
-            cmd.CommandText = $"INSERT INTO Employees (FirstName,LastName,BirthDate) VALUES ('{newEmp.FirstName}','{newEmp.LastName}','" + newEmp.BirthDate.ToString(New CultureInfo("EN-us")) + "')"
+            'cmd.CommandText = $"INSERT INTO Employees (FirstName,LastName,BirthDate) VALUES ('{newEmp.FirstName}','{newEmp.LastName}','" + newEmp.BirthDate.ToString(New CultureInfo("EN-us")) + "')"
+            cmd.CommandText = $"INSERT INTO Employees (FirstName,LastName,BirthDate) VALUES (@fName,@lname,@bdate)"
+            cmd.Parameters.AddWithValue("fName", firstName)
+            cmd.Parameters.AddWithValue("lName", lastName)
+            cmd.Parameters.AddWithValue("bdate", birthDate)
             Dim rows = cmd.ExecuteNonQuery()
 
             Debug.WriteLine($"{rows} wurde hinzugefügt")
