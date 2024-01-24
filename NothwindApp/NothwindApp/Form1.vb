@@ -4,7 +4,7 @@ Imports Microsoft.Data.SqlClient
 
 Public Class Form1
 
-    Dim conString = "Server=(localdb)\mssqllocaldb;Database=Northwnd;Trusted_Connection=True;Encrypt=False"
+    Dim conString As String = "Server=(localdb)\mssqllocaldb;Database=Northwnd;Trusted_Connection=True;Encrypt=False"
     Dim dbm As DbManager = New DbManager(conString)
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
