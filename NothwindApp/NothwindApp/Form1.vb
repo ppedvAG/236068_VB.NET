@@ -1,4 +1,5 @@
 ﻿Imports System.Globalization
+Imports Bogus
 Imports Microsoft.Data.SqlClient
 
 Public Class Form1
@@ -70,5 +71,73 @@ Public Class Form1
             MessageBox.Show($"Fehler: {ex.Message}")
         End Try
 
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+
+        Dim faker = New Faker(Of Employee)("de")
+        faker.UseSeed(5)
+        faker.RuleFor(Function(x) x.FirstName, Function(x) x.Name.FirstName) _
+             .RuleFor(Function(x) x.LastName, Function(x) x.Name.LastName) _
+             .RuleFor(Function(x) x.BirthDate, Function(x) x.Date.Past(30))
+
+        DataGridView1.DataSource = faker.Generate(100)
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+
+        Dim emps = TryCast(DataGridView1.DataSource, List(Of Employee))
+        If emps IsNot Nothing Then
+
+            Dim newList = New List(Of Employee)
+            For Each emp In emps
+                If emp.BirthDate.Year >= 2000 Then
+                    newList.Add(emp)
+                End If
+            Next
+
+            newList.Sort(AddressOf MySortFunction)
+
+            DataGridView1.DataSource = newList
+        End If
+
+    End Sub
+
+    Public Function MySortFunction(x As Employee, y As Employee) As Integer
+        If x.BirthDate > y.BirthDate Then
+            Return 1
+        ElseIf x.BirthDate < y.BirthDate Then
+            Return -1
+        Else
+            Return 0
+        End If
+    End Function
+
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+
+        Dim emps = TryCast(DataGridView1.DataSource, List(Of Employee))
+        If emps IsNot Nothing Then
+
+            Dim query = From emp In emps
+                        Where emp.BirthDate.Year >= 2000
+                        Order By emp.BirthDate.Year, emp.BirthDate.Month Descending
+                        Select emp
+
+            DataGridView1.DataSource = query.ToList
+
+        End If
+
+    End Sub
+
+    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        Dim emps = TryCast(DataGridView1.DataSource, List(Of Employee))
+        If emps IsNot Nothing Then
+
+            DataGridView1.DataSource = emps.Where(Function(emp) emp.BirthDate.Year >= 2000) _
+                                           .OrderBy(Function(emp) emp.BirthDate.Year) _
+                                           .ThenByDescending(Function(emp) emp.BirthDate.Month) _
+                                           .ToList()
+
+        End If
     End Sub
 End Class

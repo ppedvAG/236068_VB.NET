@@ -25,10 +25,14 @@ Partial Class Form1
         FlowLayoutPanel1 = New FlowLayoutPanel()
         Button1 = New Button()
         Button2 = New Button()
-        DataGridView1 = New DataGridView()
         Label1 = New Label()
         TextBox1 = New TextBox()
         Button3 = New Button()
+        Button4 = New Button()
+        Button5 = New Button()
+        Button6 = New Button()
+        DataGridView1 = New DataGridView()
+        Button7 = New Button()
         FlowLayoutPanel1.SuspendLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -43,10 +47,14 @@ Partial Class Form1
         FlowLayoutPanel1.Controls.Add(Label1)
         FlowLayoutPanel1.Controls.Add(TextBox1)
         FlowLayoutPanel1.Controls.Add(Button3)
+        FlowLayoutPanel1.Controls.Add(Button4)
+        FlowLayoutPanel1.Controls.Add(Button5)
+        FlowLayoutPanel1.Controls.Add(Button6)
+        FlowLayoutPanel1.Controls.Add(Button7)
         FlowLayoutPanel1.Dock = DockStyle.Top
         FlowLayoutPanel1.Location = New Point(0, 0)
         FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        FlowLayoutPanel1.Size = New Size(906, 48)
+        FlowLayoutPanel1.Size = New Size(906, 192)
         FlowLayoutPanel1.TabIndex = 0
         ' 
         ' Button1
@@ -70,17 +78,6 @@ Partial Class Form1
         Button2.TabIndex = 1
         Button2.Text = "Neuer Employee"
         Button2.UseVisualStyleBackColor = True
-        ' 
-        ' DataGridView1
-        ' 
-        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Dock = DockStyle.Fill
-        DataGridView1.Location = New Point(0, 48)
-        DataGridView1.Name = "DataGridView1"
-        DataGridView1.RowHeadersWidth = 82
-        DataGridView1.RowTemplate.Height = 41
-        DataGridView1.Size = New Size(906, 402)
-        DataGridView1.TabIndex = 1
         ' 
         ' Label1
         ' 
@@ -111,6 +108,61 @@ Partial Class Form1
         Button3.Text = "Suchen"
         Button3.UseVisualStyleBackColor = True
         ' 
+        ' Button4
+        ' 
+        Button4.AutoSize = True
+        Button4.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        Button4.Location = New Point(3, 51)
+        Button4.Name = "Button4"
+        Button4.Size = New Size(258, 42)
+        Button4.TabIndex = 5
+        Button4.Text = "Bogus 100 Employees"
+        Button4.UseVisualStyleBackColor = True
+        ' 
+        ' Button5
+        ' 
+        Button5.AutoSize = True
+        Button5.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        Button5.Location = New Point(267, 51)
+        Button5.Name = "Button5"
+        Button5.Size = New Size(420, 42)
+        Button5.TabIndex = 6
+        Button5.Text = "Nur alle aus diesem Jahrtausend (VB)"
+        Button5.UseVisualStyleBackColor = True
+        ' 
+        ' Button6
+        ' 
+        Button6.AutoSize = True
+        Button6.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        Button6.Location = New Point(3, 99)
+        Button6.Name = "Button6"
+        Button6.Size = New Size(508, 42)
+        Button6.TabIndex = 7
+        Button6.Text = "Nur alle aus diesem Jahrtausend (Linq Query)"
+        Button6.UseVisualStyleBackColor = True
+        ' 
+        ' DataGridView1
+        ' 
+        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridView1.Dock = DockStyle.Fill
+        DataGridView1.Location = New Point(0, 192)
+        DataGridView1.Name = "DataGridView1"
+        DataGridView1.RowHeadersWidth = 82
+        DataGridView1.RowTemplate.Height = 41
+        DataGridView1.Size = New Size(906, 258)
+        DataGridView1.TabIndex = 1
+        ' 
+        ' Button7
+        ' 
+        Button7.AutoSize = True
+        Button7.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        Button7.Location = New Point(3, 147)
+        Button7.Name = "Button7"
+        Button7.Size = New Size(527, 42)
+        Button7.TabIndex = 8
+        Button7.Text = "Nur alle aus diesem Jahrtausend (Linq Lambda)"
+        Button7.UseVisualStyleBackColor = True
+        ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(13F, 32F)
@@ -134,5 +186,9 @@ Partial Class Form1
     Friend WithEvents Label1 As Label
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Button3 As Button
+    Friend WithEvents Button4 As Button
+    Friend WithEvents Button5 As Button
+    Friend WithEvents Button6 As Button
+    Friend WithEvents Button7 As Button
 
 End Class
