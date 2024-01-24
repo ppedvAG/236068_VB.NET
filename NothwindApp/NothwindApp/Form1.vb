@@ -1,4 +1,8 @@
 ﻿Imports System.Globalization
+Imports System.IO
+Imports System.Text.Encodings.Web
+Imports System.Text.Json
+Imports System.Text.Unicode
 Imports Bogus
 Imports Microsoft.Data.SqlClient
 
@@ -136,8 +140,34 @@ Public Class Form1
             DataGridView1.DataSource = emps.Where(Function(emp) emp.BirthDate.Year >= 2000) _
                                            .OrderBy(Function(emp) emp.BirthDate.Year) _
                                            .ThenByDescending(Function(emp) emp.BirthDate.Month) _
-                                           .ToList()
+                                           .ToList
 
         End If
+    End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+
+        Dim fileName = "employees.json"
+        Dim emps = TryCast(DataGridView1.DataSource, List(Of Employee))
+        If emps IsNot Nothing Then
+
+            Dim ops = New JsonSerializerOptions With {
+                        .Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.All),
+                        .WriteIndented = True
+                        }
+            Dim json = System.Text.Json.JsonSerializer.Serialize(emps, ops)
+            File.WriteAllText(fileName, json)
+
+        End If
+
+    End Sub
+
+    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+
+        Dim fileName = "employees.json"
+        Dim json = File.ReadAllText(fileName)
+
+        DataGridView1.DataSource = System.Text.Json.JsonSerializer.Deserialize(Of List(Of Employee))(json)
+
     End Sub
 End Class

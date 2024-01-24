@@ -31,8 +31,10 @@ Partial Class Form1
         Button4 = New Button()
         Button5 = New Button()
         Button6 = New Button()
-        DataGridView1 = New DataGridView()
         Button7 = New Button()
+        Button8 = New Button()
+        DataGridView1 = New DataGridView()
+        Button9 = New Button()
         FlowLayoutPanel1.SuspendLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -51,10 +53,12 @@ Partial Class Form1
         FlowLayoutPanel1.Controls.Add(Button5)
         FlowLayoutPanel1.Controls.Add(Button6)
         FlowLayoutPanel1.Controls.Add(Button7)
+        FlowLayoutPanel1.Controls.Add(Button8)
+        FlowLayoutPanel1.Controls.Add(Button9)
         FlowLayoutPanel1.Dock = DockStyle.Top
         FlowLayoutPanel1.Location = New Point(0, 0)
         FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        FlowLayoutPanel1.Size = New Size(906, 192)
+        FlowLayoutPanel1.Size = New Size(906, 240)
         FlowLayoutPanel1.TabIndex = 0
         ' 
         ' Button1
@@ -141,17 +145,6 @@ Partial Class Form1
         Button6.Text = "Nur alle aus diesem Jahrtausend (Linq Query)"
         Button6.UseVisualStyleBackColor = True
         ' 
-        ' DataGridView1
-        ' 
-        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Dock = DockStyle.Fill
-        DataGridView1.Location = New Point(0, 192)
-        DataGridView1.Name = "DataGridView1"
-        DataGridView1.RowHeadersWidth = 82
-        DataGridView1.RowTemplate.Height = 41
-        DataGridView1.Size = New Size(906, 258)
-        DataGridView1.TabIndex = 1
-        ' 
         ' Button7
         ' 
         Button7.AutoSize = True
@@ -162,6 +155,39 @@ Partial Class Form1
         Button7.TabIndex = 8
         Button7.Text = "Nur alle aus diesem Jahrtausend (Linq Lambda)"
         Button7.UseVisualStyleBackColor = True
+        ' 
+        ' Button8
+        ' 
+        Button8.AutoSize = True
+        Button8.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        Button8.Location = New Point(536, 147)
+        Button8.Name = "Button8"
+        Button8.Size = New Size(274, 42)
+        Button8.TabIndex = 9
+        Button8.Text = "Alle als JSON speichern"
+        Button8.UseVisualStyleBackColor = True
+        ' 
+        ' DataGridView1
+        ' 
+        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridView1.Dock = DockStyle.Fill
+        DataGridView1.Location = New Point(0, 240)
+        DataGridView1.Name = "DataGridView1"
+        DataGridView1.RowHeadersWidth = 82
+        DataGridView1.RowTemplate.Height = 41
+        DataGridView1.Size = New Size(906, 210)
+        DataGridView1.TabIndex = 1
+        ' 
+        ' Button9
+        ' 
+        Button9.AutoSize = True
+        Button9.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        Button9.Location = New Point(3, 195)
+        Button9.Name = "Button9"
+        Button9.Size = New Size(148, 42)
+        Button9.TabIndex = 10
+        Button9.Text = "JSON laden"
+        Button9.UseVisualStyleBackColor = True
         ' 
         ' Form1
         ' 
@@ -190,5 +216,7 @@ Partial Class Form1
     Friend WithEvents Button5 As Button
     Friend WithEvents Button6 As Button
     Friend WithEvents Button7 As Button
+    Friend WithEvents Button8 As Button
+    Friend WithEvents Button9 As Button
 
 End Class
