@@ -1,63 +1,28 @@
-﻿Imports System.Globalization
-Imports System.IO
-Imports System.Text.Encodings.Web
-Imports System.Text.Json
-Imports System.Text.Unicode
-Imports Bogus
-Imports Microsoft.Data.SqlClient
+﻿Imports Bogus
 
 Public Class Form1
 
     Dim conString As String = "Server=(localdb)\mssqllocaldb;Database=Northwnd;Trusted_Connection=True;Encrypt=False"
-    Dim dbm As DbManager = New DbManager(conString)
+
+    Dim repo As IEmployeeRepository
 
     Sub New()
 
         ' This call is required by the designer.
         InitializeComponent()
 
-        'Dim text = "Hallo"
-        'text = 4
-        'text = text * 2 / 0
-
-        Dim heute = DateTime.Now
-        Dim kleines = New KleinesDing
-        kleines.Name = "lala"
-
-        ' Add any initialization after the InitializeComponent() call.
-
-#If DEBUG Then
-        Text = "NorthwindApp DEBUG"
-#Else
-        Text = "NorthwindApp RELEASE"
-#End If
-
-        AddHandler Me.ThreeTimesLoadedEvent, AddressOf ThreeTimesHandler
-        AddHandler Me.ThreeTimesLoadedEvent, AddressOf ThreeTimesHandler
-        RemoveHandler Me.ThreeTimesLoadedEvent, AddressOf ThreeTimesHandler
-        AddHandler Me.ThreeTimesLoadedEvent, AddressOf ThreeTimesHandler
-
+        repo = New DbManager(conString)
+        'repo = New JsonManager("employees.json")
 
     End Sub
 
-    Event ThreeTimesLoadedEvent(loadCount As Integer)
-
-    Public Sub ThreeTimesHandler(count As Integer) Handles Me.ThreeTimesLoadedEvent
-        MessageBox.Show($"ThreeTimesHandler: {count}")
-    End Sub
-
-    Dim loadCount As Integer
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         Try
 
-            DataGridView1.DataSource = dbm.GetAllEmployees()
-            loadCount += 1
-            If loadCount Mod 3 = 0 Then
-                RaiseEvent ThreeTimesLoadedEvent(loadCount)
-            End If
+            DataGridView1.DataSource = repo.GetAll()
 
-        Catch ex As SqlException
+        Catch ex As Microsoft.Data.SqlClient.SqlException
             MessageBox.Show($"Datenbank-Fehler: {ex.Message} {vbCrLf}Server: {ex.Server}{vbCrLf}State: {ex.State}{vbCrLf}Source: {ex.Source}{vbCrLf}")
         Catch ex As Exception
             MessageBox.Show($"Fehler: {ex.Message}")
@@ -90,13 +55,18 @@ Public Class Form1
 
         Try
 
-            dbm.AddNewEmployee("NEU", "NEU", DateTime.Now.AddYears(-20))
+            Dim newEmp = New Employee With {
+                            .FirstName = "NEU",
+                            .LastName = "NEU",
+                            .BirthDate = Date.Now.AddYears(-200)}
 
-            MessageBox.Show("Done")
-        Catch ex As TooOldOrBirthdateInFutureException
-            MessageBox.Show($"HR-Policy-Fehler: {ex.Message} {vbCrLf}Datum: {ex.Today}{vbCrLf}BirthDate: {ex.Birthdate}")
-        Catch ex As SqlException
-            MessageBox.Show($"Datenbank-Fehler: {ex.Message} {vbCrLf}Server: {ex.Server}{vbCrLf}State: {ex.State}{vbCrLf}Source: {ex.Source}{vbCrLf}")
+            Dim emps = TryCast(DataGridView1.DataSource, List(Of Employee))
+            If emps IsNot Nothing Then
+                emps.Add(newEmp)
+                DataGridView1.DataSource = Nothing
+                DataGridView1.DataSource = emps
+            End If
+
         Catch ex As Exception
             MessageBox.Show($"Fehler: {ex.Message}")
         End Try
@@ -107,9 +77,9 @@ Public Class Form1
 
         Try
 
-            DataGridView1.DataSource = dbm.GetAllEmployees(TextBox1.Text)
+            'DataGridView1.DataSource = dbm.GetAllEmployees(TextBox1.Text)
 
-        Catch ex As SqlException
+        Catch ex As Microsoft.Data.SqlClient.SqlException
             MessageBox.Show($"Datenbank-Fehler: {ex.Message} {vbCrLf}Server: {ex.Server}{vbCrLf}State: {ex.State}{vbCrLf}Source: {ex.Source}{vbCrLf}")
         Catch ex As Exception
             MessageBox.Show($"Fehler: {ex.Message}")
@@ -185,38 +155,22 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
-
-        If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
-            Dim fileName = SaveFileDialog1.FileName
+    Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
+        Try
 
             Dim emps = TryCast(DataGridView1.DataSource, List(Of Employee))
+
             If emps IsNot Nothing Then
-
-                Dim ops = New JsonSerializerOptions With {
-                            .Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.All),
-                            .WriteIndented = True
-                            }
-                Dim json = System.Text.Json.JsonSerializer.Serialize(emps, ops)
-                File.WriteAllText(fileName, json)
-
+                repo.SaveAll(emps)
+                MessageBox.Show("Done")
             End If
-        End If
-    End Sub
 
-    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
-
-        Dim dlg = New OpenFileDialog()
-        dlg.Title = "Die JSON Datei"
-        dlg.Filter = "JSON-Datei|*.json|Alle Dateitypen|*.*"
-
-        If dlg.ShowDialog() = DialogResult.OK Then
-
-            Dim fileName = dlg.FileName
-            Dim json = File.ReadAllText(fileName)
-
-            DataGridView1.DataSource = System.Text.Json.JsonSerializer.Deserialize(Of List(Of Employee))(json)
-        End If
-
+        Catch ex As TooOldOrBirthdateInFutureException
+            MessageBox.Show($"HR-Policy-Fehler: {ex.Message} {vbCrLf}Datum: {ex.Today}{vbCrLf}BirthDate: {ex.Birthdate}")
+        Catch ex As Microsoft.Data.SqlClient.SqlException
+            MessageBox.Show($"Datenbank-Fehler: {ex.Message} {vbCrLf}Server: {ex.Server}{vbCrLf}State: {ex.State}{vbCrLf}Source: {ex.Source}{vbCrLf}")
+        Catch ex As Exception
+            MessageBox.Show($"Fehler: {ex.Message}")
+        End Try
     End Sub
 End Class

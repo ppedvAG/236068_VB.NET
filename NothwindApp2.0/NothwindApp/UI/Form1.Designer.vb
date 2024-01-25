@@ -25,6 +25,7 @@ Partial Class Form1
         FlowLayoutPanel1 = New FlowLayoutPanel()
         Button1 = New Button()
         Button2 = New Button()
+        Button10 = New Button()
         Label1 = New Label()
         TextBox1 = New TextBox()
         Button3 = New Button()
@@ -32,8 +33,6 @@ Partial Class Form1
         Button5 = New Button()
         Button6 = New Button()
         Button7 = New Button()
-        Button8 = New Button()
-        Button9 = New Button()
         DataGridView1 = New DataGridView()
         SaveFileDialog1 = New SaveFileDialog()
         FlowLayoutPanel1.SuspendLayout()
@@ -47,6 +46,7 @@ Partial Class Form1
         FlowLayoutPanel1.BackColor = Color.DarkSalmon
         FlowLayoutPanel1.Controls.Add(Button1)
         FlowLayoutPanel1.Controls.Add(Button2)
+        FlowLayoutPanel1.Controls.Add(Button10)
         FlowLayoutPanel1.Controls.Add(Label1)
         FlowLayoutPanel1.Controls.Add(TextBox1)
         FlowLayoutPanel1.Controls.Add(Button3)
@@ -54,8 +54,6 @@ Partial Class Form1
         FlowLayoutPanel1.Controls.Add(Button5)
         FlowLayoutPanel1.Controls.Add(Button6)
         FlowLayoutPanel1.Controls.Add(Button7)
-        FlowLayoutPanel1.Controls.Add(Button8)
-        FlowLayoutPanel1.Controls.Add(Button9)
         FlowLayoutPanel1.Dock = DockStyle.Top
         FlowLayoutPanel1.Location = New Point(0, 0)
         FlowLayoutPanel1.Name = "FlowLayoutPanel1"
@@ -84,11 +82,23 @@ Partial Class Form1
         Button2.Text = "Neuer Employee"
         Button2.UseVisualStyleBackColor = True
         ' 
+        ' Button10
+        ' 
+        Button10.AutoSize = True
+        Button10.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        FlowLayoutPanel1.SetFlowBreak(Button10, True)
+        Button10.Location = New Point(471, 3)
+        Button10.Name = "Button10"
+        Button10.Size = New Size(170, 42)
+        Button10.TabIndex = 11
+        Button10.Text = "💾 Speichern"
+        Button10.UseVisualStyleBackColor = True
+        ' 
         ' Label1
         ' 
         Label1.Anchor = AnchorStyles.Left
         Label1.AutoSize = True
-        Label1.Location = New Point(471, 8)
+        Label1.Location = New Point(3, 56)
         Label1.Name = "Label1"
         Label1.Size = New Size(84, 32)
         Label1.TabIndex = 2
@@ -97,7 +107,7 @@ Partial Class Form1
         ' TextBox1
         ' 
         TextBox1.Anchor = AnchorStyles.Left
-        TextBox1.Location = New Point(561, 4)
+        TextBox1.Location = New Point(93, 52)
         TextBox1.Name = "TextBox1"
         TextBox1.Size = New Size(200, 39)
         TextBox1.TabIndex = 3
@@ -106,7 +116,7 @@ Partial Class Form1
         ' 
         Button3.AutoSize = True
         Button3.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        Button3.Location = New Point(767, 3)
+        Button3.Location = New Point(299, 51)
         Button3.Name = "Button3"
         Button3.Size = New Size(103, 42)
         Button3.TabIndex = 4
@@ -117,7 +127,7 @@ Partial Class Form1
         ' 
         Button4.AutoSize = True
         Button4.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        Button4.Location = New Point(3, 51)
+        Button4.Location = New Point(408, 51)
         Button4.Name = "Button4"
         Button4.Size = New Size(258, 42)
         Button4.TabIndex = 5
@@ -128,7 +138,7 @@ Partial Class Form1
         ' 
         Button5.AutoSize = True
         Button5.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        Button5.Location = New Point(267, 51)
+        Button5.Location = New Point(3, 99)
         Button5.Name = "Button5"
         Button5.Size = New Size(420, 42)
         Button5.TabIndex = 6
@@ -139,7 +149,7 @@ Partial Class Form1
         ' 
         Button6.AutoSize = True
         Button6.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        Button6.Location = New Point(3, 99)
+        Button6.Location = New Point(3, 147)
         Button6.Name = "Button6"
         Button6.Size = New Size(508, 42)
         Button6.TabIndex = 7
@@ -150,34 +160,12 @@ Partial Class Form1
         ' 
         Button7.AutoSize = True
         Button7.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        Button7.Location = New Point(3, 147)
+        Button7.Location = New Point(3, 195)
         Button7.Name = "Button7"
         Button7.Size = New Size(527, 42)
         Button7.TabIndex = 8
         Button7.Text = "Nur alle aus diesem Jahrtausend (Linq Lambda)"
         Button7.UseVisualStyleBackColor = True
-        ' 
-        ' Button8
-        ' 
-        Button8.AutoSize = True
-        Button8.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        Button8.Location = New Point(536, 147)
-        Button8.Name = "Button8"
-        Button8.Size = New Size(274, 42)
-        Button8.TabIndex = 9
-        Button8.Text = "Alle als JSON speichern"
-        Button8.UseVisualStyleBackColor = True
-        ' 
-        ' Button9
-        ' 
-        Button9.AutoSize = True
-        Button9.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        Button9.Location = New Point(3, 195)
-        Button9.Name = "Button9"
-        Button9.Size = New Size(148, 42)
-        Button9.TabIndex = 10
-        Button9.Text = "JSON laden"
-        Button9.UseVisualStyleBackColor = True
         ' 
         ' DataGridView1
         ' 
@@ -222,8 +210,7 @@ Partial Class Form1
     Friend WithEvents Button5 As Button
     Friend WithEvents Button6 As Button
     Friend WithEvents Button7 As Button
-    Friend WithEvents Button8 As Button
-    Friend WithEvents Button9 As Button
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
+    Friend WithEvents Button10 As Button
 
 End Class
