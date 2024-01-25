@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Data.SqlClient
 
+
 Public Class DbManager
 
     Public ReadOnly Property ConString As String
