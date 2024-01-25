@@ -147,27 +147,36 @@ Public Class Form1
 
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
 
-        Dim fileName = "employees.json"
-        Dim emps = TryCast(DataGridView1.DataSource, List(Of Employee))
-        If emps IsNot Nothing Then
+        If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
+            Dim fileName = SaveFileDialog1.FileName
 
-            Dim ops = New JsonSerializerOptions With {
-                        .Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.All),
-                        .WriteIndented = True
-                        }
-            Dim json = System.Text.Json.JsonSerializer.Serialize(emps, ops)
-            File.WriteAllText(fileName, json)
+            Dim emps = TryCast(DataGridView1.DataSource, List(Of Employee))
+            If emps IsNot Nothing Then
 
+                Dim ops = New JsonSerializerOptions With {
+                            .Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.All),
+                            .WriteIndented = True
+                            }
+                Dim json = System.Text.Json.JsonSerializer.Serialize(emps, ops)
+                File.WriteAllText(fileName, json)
+
+            End If
         End If
-
     End Sub
 
     Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
 
-        Dim fileName = "employees.json"
-        Dim json = File.ReadAllText(fileName)
+        Dim dlg = New OpenFileDialog()
+        dlg.Title = "Die JSON Datei"
+        dlg.Filter = "JSON-Datei|*.json|Alle Dateitypen|*.*"
 
-        DataGridView1.DataSource = System.Text.Json.JsonSerializer.Deserialize(Of List(Of Employee))(json)
+        If dlg.ShowDialog() = DialogResult.OK Then
+
+            Dim fileName = dlg.FileName
+            Dim json = File.ReadAllText(fileName)
+
+            DataGridView1.DataSource = System.Text.Json.JsonSerializer.Deserialize(Of List(Of Employee))(json)
+        End If
 
     End Sub
 End Class

@@ -33,8 +33,9 @@ Partial Class Form1
         Button6 = New Button()
         Button7 = New Button()
         Button8 = New Button()
-        DataGridView1 = New DataGridView()
         Button9 = New Button()
+        DataGridView1 = New DataGridView()
+        SaveFileDialog1 = New SaveFileDialog()
         FlowLayoutPanel1.SuspendLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -167,6 +168,17 @@ Partial Class Form1
         Button8.Text = "Alle als JSON speichern"
         Button8.UseVisualStyleBackColor = True
         ' 
+        ' Button9
+        ' 
+        Button9.AutoSize = True
+        Button9.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        Button9.Location = New Point(3, 195)
+        Button9.Name = "Button9"
+        Button9.Size = New Size(148, 42)
+        Button9.TabIndex = 10
+        Button9.Text = "JSON laden"
+        Button9.UseVisualStyleBackColor = True
+        ' 
         ' DataGridView1
         ' 
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -178,16 +190,10 @@ Partial Class Form1
         DataGridView1.Size = New Size(906, 210)
         DataGridView1.TabIndex = 1
         ' 
-        ' Button9
+        ' SaveFileDialog1
         ' 
-        Button9.AutoSize = True
-        Button9.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        Button9.Location = New Point(3, 195)
-        Button9.Name = "Button9"
-        Button9.Size = New Size(148, 42)
-        Button9.TabIndex = 10
-        Button9.Text = "JSON laden"
-        Button9.UseVisualStyleBackColor = True
+        SaveFileDialog1.Filter = "JSON-Datei|*.json|Alle Dateitypen|*.*"
+        SaveFileDialog1.Title = "Die JSON Datei"
         ' 
         ' Form1
         ' 
@@ -218,5 +224,6 @@ Partial Class Form1
     Friend WithEvents Button7 As Button
     Friend WithEvents Button8 As Button
     Friend WithEvents Button9 As Button
+    Friend WithEvents SaveFileDialog1 As SaveFileDialog
 
 End Class
