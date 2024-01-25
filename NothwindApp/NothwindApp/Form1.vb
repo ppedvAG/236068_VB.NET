@@ -11,11 +11,51 @@ Public Class Form1
     Dim conString As String = "Server=(localdb)\mssqllocaldb;Database=Northwnd;Trusted_Connection=True;Encrypt=False"
     Dim dbm As DbManager = New DbManager(conString)
 
+    Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        'Dim text = "Hallo"
+        'text = 4
+        'text = text * 2 / 0
+
+        Dim heute = DateTime.Now
+        Dim kleines = New KleinesDing
+        kleines.Name = "lala"
+
+        ' Add any initialization after the InitializeComponent() call.
+
+#If DEBUG Then
+        Text = "NorthwindApp DEBUG"
+#Else
+        Text = "NorthwindApp RELEASE"
+#End If
+
+        AddHandler Me.ThreeTimesLoadedEvent, AddressOf ThreeTimesHandler
+        AddHandler Me.ThreeTimesLoadedEvent, AddressOf ThreeTimesHandler
+        RemoveHandler Me.ThreeTimesLoadedEvent, AddressOf ThreeTimesHandler
+        AddHandler Me.ThreeTimesLoadedEvent, AddressOf ThreeTimesHandler
+
+
+    End Sub
+
+    Event ThreeTimesLoadedEvent(loadCount As Integer)
+
+    Public Sub ThreeTimesHandler(count As Integer) Handles Me.ThreeTimesLoadedEvent
+        MessageBox.Show($"ThreeTimesHandler: {count}")
+    End Sub
+
+    Dim loadCount As Integer
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         Try
 
             DataGridView1.DataSource = dbm.GetAllEmployees()
+            loadCount += 1
+            If loadCount Mod 3 = 0 Then
+                RaiseEvent ThreeTimesLoadedEvent(loadCount)
+            End If
 
         Catch ex As SqlException
             MessageBox.Show($"Datenbank-Fehler: {ex.Message} {vbCrLf}Server: {ex.Server}{vbCrLf}State: {ex.State}{vbCrLf}Source: {ex.Source}{vbCrLf}")
