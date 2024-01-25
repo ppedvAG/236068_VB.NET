@@ -14,13 +14,26 @@ Public Class Form1
         repo = New DbManager(conString)
         'repo = New JsonManager("employees.json")
 
+
+        'Binding
+        TextBox3.DataBindings.Add("Text", TextBox2, "Text", True, DataSourceUpdateMode.OnPropertyChanged)
+        TextBox3.DataBindings.Add("BackColor", TextBox2, "Text", True, DataSourceUpdateMode.OnPropertyChanged)
+        Label2.DataBindings.Add("Text", TrackBar1, "Value")
+
+        DataGridView1.AutoGenerateColumns = False
+        BindingSource1.DataSource = New List(Of Employee)
+        DataGridView1.DataSource = BindingSource1
+        ListBox1.DataSource = BindingSource1
+        vornameTextBox.DataBindings.Add("Text", BindingSource1, "FirstName")
+        nachnameTextBox.DataBindings.Add("Text", BindingSource1, "LastName")
+        gebDatumDateTimePicker.DataBindings.Add("Value", BindingSource1, "BirthDate", True)
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         Try
 
-            DataGridView1.DataSource = repo.GetAll()
+            BindingSource1.DataSource = repo.GetAll()
 
         Catch ex As Microsoft.Data.SqlClient.SqlException
             MessageBox.Show($"Datenbank-Fehler: {ex.Message} {vbCrLf}Server: {ex.Server}{vbCrLf}State: {ex.State}{vbCrLf}Source: {ex.Source}{vbCrLf}")
@@ -32,7 +45,7 @@ Public Class Form1
 
     Private Sub DataGridView1_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellDoubleClick
 
-        Dim empAsObj = DataGridView1.CurrentRow.DataBoundItem
+        Dim empAsObj = BindingSource1.Current
 
         If TypeOf empAsObj Is Employee Then 'typprüfung
             Dim emp = CType(empAsObj, Employee) 'casting
@@ -60,12 +73,7 @@ Public Class Form1
                             .LastName = "NEU",
                             .BirthDate = Date.Now.AddYears(-200)}
 
-            Dim emps = TryCast(DataGridView1.DataSource, List(Of Employee))
-            If emps IsNot Nothing Then
-                emps.Add(newEmp)
-                DataGridView1.DataSource = Nothing
-                DataGridView1.DataSource = emps
-            End If
+            BindingSource1.Add(newEmp)
 
         Catch ex As Exception
             MessageBox.Show($"Fehler: {ex.Message}")
@@ -95,12 +103,12 @@ Public Class Form1
              .RuleFor(Function(x) x.LastName, Function(x) x.Name.LastName) _
              .RuleFor(Function(x) x.BirthDate, Function(x) x.Date.Past(30))
 
-        DataGridView1.DataSource = faker.Generate(100)
+        BindingSource1.DataSource = faker.Generate(100)
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
 
-        Dim emps = TryCast(DataGridView1.DataSource, List(Of Employee))
+        Dim emps = TryCast(BindingSource1.DataSource, List(Of Employee))
         If emps IsNot Nothing Then
 
             Dim newList = New List(Of Employee)
@@ -112,7 +120,7 @@ Public Class Form1
 
             newList.Sort(AddressOf MySortFunction)
 
-            DataGridView1.DataSource = newList
+            BindingSource1.DataSource = newList
         End If
 
     End Sub
@@ -129,7 +137,7 @@ Public Class Form1
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
 
-        Dim emps = TryCast(DataGridView1.DataSource, List(Of Employee))
+        Dim emps = TryCast(BindingSource1.DataSource, List(Of Employee))
         If emps IsNot Nothing Then
 
             Dim query = From emp In emps
@@ -137,17 +145,17 @@ Public Class Form1
                         Order By emp.BirthDate.Year, emp.BirthDate.Month Descending
                         Select emp
 
-            DataGridView1.DataSource = query.ToList
+            BindingSource1.DataSource = query.ToList
 
         End If
 
     End Sub
 
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
-        Dim emps = TryCast(DataGridView1.DataSource, List(Of Employee))
+        Dim emps = TryCast(BindingSource1.DataSource, List(Of Employee))
         If emps IsNot Nothing Then
 
-            DataGridView1.DataSource = emps.Where(Function(emp) emp.BirthDate.Year >= 2000) _
+            BindingSource1.DataSource = emps.Where(Function(emp) emp.BirthDate.Year >= 2000) _
                                            .OrderBy(Function(emp) emp.BirthDate.Year) _
                                            .ThenByDescending(Function(emp) emp.BirthDate.Month) _
                                            .ToList
@@ -158,7 +166,7 @@ Public Class Form1
     Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
         Try
 
-            Dim emps = TryCast(DataGridView1.DataSource, List(Of Employee))
+            Dim emps = TryCast(BindingSource1.DataSource, List(Of Employee))
 
             If emps IsNot Nothing Then
                 repo.SaveAll(emps)
@@ -172,5 +180,12 @@ Public Class Form1
         Catch ex As Exception
             MessageBox.Show($"Fehler: {ex.Message}")
         End Try
+    End Sub
+
+    Private Sub ListBox1_Format(sender As Object, e As ListControlConvertEventArgs) Handles ListBox1.Format
+        Dim emp = TryCast(e.Value, Employee)
+        If emp IsNot Nothing Then
+            e.Value = $"{emp.FirstName} {emp.LastName}"
+        End If
     End Sub
 End Class
